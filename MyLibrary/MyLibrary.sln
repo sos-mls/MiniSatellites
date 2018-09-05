@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainMaster", "DomainMaste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMaster", "DataMaster\DataMaster.csproj", "{62E703E8-CBD8-4080-9C96-A095F17ADD9E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PRESENTATIONS", "PRESENTATIONS", "{2F32BE4D-0AF6-49BC-B002-26D3D5152A2A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,7 +36,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{118621D5-BECD-45F0-AD46-47CEF22D4CCF} = {2F32BE4D-0AF6-49BC-B002-26D3D5152A2A}
 		{521987E7-EB10-4154-BCC6-85BF874B4CE8} = {115D468B-BEC5-4CCE-8B8D-4CA84AC2CE76}
 		{62E703E8-CBD8-4080-9C96-A095F17ADD9E} = {414940C7-C473-43AD-9062-1459790ECCA9}
 	EndGlobalSection
