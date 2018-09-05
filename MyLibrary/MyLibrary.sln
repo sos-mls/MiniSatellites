@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2008
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLibrary", "MyLibrary\MyLibrary.csproj", "{118621D5-BECD-45F0-AD46-47CEF22D4CCF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PRESENTATION", "PRESENTATION", "{9B336E96-566D-4132-9D51-F691029CEACA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DOMAIN", "DOMAIN", "{115D468B-BEC5-4CCE-8B8D-4CA84AC2CE76}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DATA", "DATA", "{414940C7-C473-43AD-9062-1459790ECCA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{118621D5-BECD-45F0-AD46-47CEF22D4CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{118621D5-BECD-45F0-AD46-47CEF22D4CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{118621D5-BECD-45F0-AD46-47CEF22D4CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{118621D5-BECD-45F0-AD46-47CEF22D4CCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{118621D5-BECD-45F0-AD46-47CEF22D4CCF} = {9B336E96-566D-4132-9D51-F691029CEACA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FABA1613-BD4C-4F65-BF60-AC4F660DF4A5}
+	EndGlobalSection
+EndGlobal
