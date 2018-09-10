@@ -7,10 +7,13 @@ namespace DataMaster.DAO
     using System.Data;
     using System.Data.SqlClient;
 
-    public class CreatorDao
-    {
 
-        public IEnumerable<ICreator> GetCreators()
+    /// <summary>
+    /// Turn this class into a Singleton
+    /// </summary>
+    public static class CreatorDao
+    {
+        public static IEnumerable<ICreator> GetCreators()
         {
             IList<ICreator> creators = new List<ICreator>();
 

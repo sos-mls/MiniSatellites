@@ -23,9 +23,7 @@ namespace MyLibraryConsole
         {
             IEnumerable<ICreator> creators = new List<ICreator>();
 
-            CreatorDao dao = new CreatorDao();
-
-            creators = dao.GetCreators();
+            creators = CreatorDao.GetCreators();
 
             // Set Breakpoint here...
         }
