@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace MyLibraryApi.Controllers
 {
     using DataMaster.Models;
     using DomainMaster;
-    using System.Web.Http.Results;
 
     public class CreatorController : ApiController
     {

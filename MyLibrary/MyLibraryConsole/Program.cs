@@ -24,13 +24,15 @@ namespace MyLibraryConsole
         private static void Test()
         {
             IEnumerable<ICreator> creators = new List<ICreator>();
-
-            Console.WriteLine("Press Enter to Add Creator; type 'exit' to quit.");
     
             while (true)
             {
 
+                Console.WriteLine("Press Enter to Add Creator; type 'exit' to quit.");
+
                 var input = Console.ReadLine();
+
+                Console.Clear();
 
                 if (input.Equals("exit", StringComparison.OrdinalIgnoreCase))
                     break;
