@@ -23,8 +23,10 @@ namespace MyLibraryApi.Controllers
         }
 
         // POST: api/Creator
-        public void Post([FromBody]string value)
+        public void Post([FromBody]string name)
         {
+            CreatorService service = new CreatorService();
+            service.AddCreator(name, null);
         }
 
         // PUT: api/Creator/5

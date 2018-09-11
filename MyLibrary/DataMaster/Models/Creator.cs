@@ -4,19 +4,21 @@ namespace DataMaster.Models
 {
     public class Creator : ICreator
     {
+        public Creator(string name, string json)
+        {
+            Name = name;
+            Json = json;
+        }
 
         public Creator(IDataReader reader)
         {
             Id = reader.GetInt32(0);
             Name = reader.GetString(1);
-            Hash = reader.GetString(2);
-            Json = reader.GetString(3)
-;
+            Json = (reader["Json"] != System.DBNull.Value) ? reader.GetString(2) : null;
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Hash { get; set; }
         public string Json { get; set; }
     }
 }

@@ -19,10 +19,13 @@ namespace DataMaster.DbConnection
             #region Fields
 
             /// <summary>
-            /// local variable to hold ConnectionString property value
+            /// Local variable to hold ConnectionString property value
             /// </summary>
             private static string _connectionString;
 
+            /// <summary>
+            /// The connection string to connect to database
+            /// </summary>
             public static string ConnectionString
             {
                 get
@@ -56,8 +59,6 @@ namespace DataMaster.DbConnection
                 //open the entire time the app is open, this means we don't have to worry
                 //about the user not having closed the app before we import or export
                 //the database
-                //we may need to set pooling to true if this causes issues, but this means
-                //that the import/export will fail if one person forgets to close this app
                 var scsb = new SqlConnectionStringBuilder
                 {
                     InitialCatalog = DatabaseName,

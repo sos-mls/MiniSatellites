@@ -1,10 +1,12 @@
-﻿using DataMaster.DAO;
-using DataMaster.DbConnection;
-using DataMaster.Models;
+﻿using System;
 using System.Collections.Generic;
 
 namespace MyLibraryConsole
 {
+    using DataMaster.DAO;
+    using DataMaster.DbConnection;
+    using DataMaster.Models;
+
     class Program
     {
         static void Main(string[] args)
@@ -23,9 +25,32 @@ namespace MyLibraryConsole
         {
             IEnumerable<ICreator> creators = new List<ICreator>();
 
-            creators = CreatorDao.GetCreators();
+            Console.WriteLine("Press Enter to Add Creator; type 'exit' to quit.");
+    
+            while (true)
+            {
 
-            // Set Breakpoint here...
+                var input = Console.ReadLine();
+
+                if (input.Equals("exit", StringComparison.OrdinalIgnoreCase))
+                    break;
+
+                string name = "John Cossu";
+
+                if (DateTime.Now.Second % 2 == 0)
+                    name = "Christian Micklish";                
+
+                ICreator newCreator = new Creator($"{name} _ {DateTime.Now}", "MyJson");
+
+                newCreator = CreatorDao.Add(newCreator);
+
+                creators = CreatorDao.Get();           
+
+                foreach (ICreator creator in creators)
+                    Console.WriteLine($"ID: {creator.Id} / Name: {creator.Name}");                
+
+                Console.WriteLine(Environment.NewLine + Environment.NewLine);
+            }
         }
     }
 }
