@@ -5,7 +5,9 @@ namespace MyLibraryConsole
 {
     using DataMaster.DAO;
     using DataMaster.DbConnection;
+    using DataMaster.DTO;
     using DataMaster.Models;
+    using System.Linq;
 
     class Program
     {
@@ -16,12 +18,15 @@ namespace MyLibraryConsole
             SqlCommander.DatabasePassword = "Fq9m?1a?5WG3";
             SqlCommander.DatabaseName = "mylibrarydata";
 
-            Test();
-
+            TestRelations();
         }
 
+        private static void TestRelations()
+        {
+            ItemRelationshipsDto dto = ItemDao.GetRelations(3);
+        }
 
-        private static void Test()
+        private static void TestCreators()
         {
             IEnumerable<ICreator> creators = new List<ICreator>();
     
@@ -54,5 +59,46 @@ namespace MyLibraryConsole
                 Console.WriteLine(Environment.NewLine + Environment.NewLine);
             }
         }
+
+        private static void TestItems()
+        {
+
+            while (true)
+            {
+                Console.WriteLine("Enter any number between 1 and 13; type 'exit' to quit.");
+
+                string input = Console.ReadLine();
+
+                if (input.Equals("exit", StringComparison.OrdinalIgnoreCase))
+                    break;
+
+                int id = Convert.ToInt32(input);
+
+                IItem selectedItem = ItemDao.Get(id);
+
+                Console.WriteLine($"You have selected {selectedItem.Name} {Environment.NewLine}");
+
+                ItemRelationshipsDto dto = ItemDao.GetRelations(id);
+
+                foreach (IItemRelation relation in dto.Relations)
+                {
+                    if (relation.ItemOneId == selectedItem.Id)
+                    {
+                        IItem relatedItem = dto.Items.FirstOrDefault(item => item.Id == relation.ItemTwoId);
+
+                        Console.WriteLine($"{selectedItem.Name} has a downstream dependency to {relatedItem.Name}.");
+                    }
+                    else
+                    {
+                        IItem relatedItem = dto.Items.FirstOrDefault(item => item.Id == relation.ItemOneId);
+
+                        Console.WriteLine($"{selectedItem.Name} has a upstream dependency to {relatedItem.Name}.");
+                    }
+                }
+
+                Console.WriteLine(Environment.NewLine + Environment.NewLine + "----------------------------------------------------------");
+            }
+        }    
+            
     }
 }

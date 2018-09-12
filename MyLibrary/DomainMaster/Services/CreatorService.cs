@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DomainMaster
+namespace DomainMaster.Services
 {
     using DataMaster.DAO;
     using DataMaster.Models;

@@ -5,7 +5,7 @@ using System.Web.Http.Results;
 namespace MyLibraryApi.Controllers
 {
     using DataMaster.Models;
-    using DomainMaster;
+    using DomainMaster.Services;
 
     public class CreatorController : ApiController
     {

@@ -42,9 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\CreatorDao.cs" />
+    <Compile Include="DAO\ItemDao.cs" />
     <Compile Include="DbConnection\SqlCommander.cs" />
+    <Compile Include="DTO\ItemRelationshipsDto.cs" />
     <Compile Include="Models\Creator.cs" />
     <Compile Include="Models\Interfaces\ICreator.cs" />
+    <Compile Include="Models\Interfaces\IItem.cs" />
+    <Compile Include="Models\Interfaces\IItemRelation.cs" />
+    <Compile Include="Models\ItemRelation.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
