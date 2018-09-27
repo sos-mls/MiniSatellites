@@ -30,9 +30,8 @@
         {
             IDbDataParameter nameParameter = new SqlParameter("@Name", SqlDbType.VarChar) { Value = name };
             IDbDataParameter jsonParameter = new SqlParameter("@Json", SqlDbType.VarChar) { Value = json };
-            IList<IDbDataParameter> itemParameters = new List<IDbDataParameter>(){ nameParameter, jsonParameter };
-
-            int itemId = ItemDao.Add(itemParameters);
+            
+            int itemId = ItemDao.Add(new List<IDbDataParameter>() { nameParameter, jsonParameter });
 
             return new Item(name, json, itemId);
         }
