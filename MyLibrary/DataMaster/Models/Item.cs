@@ -4,10 +4,11 @@ namespace DataMaster.Models
 {
     public class Item : IItem
     {
-        public Item(string name, string json)
+        public Item(string name, string json, int id = 0)
         {
             Name = name;
             Json = json;
+            Id = id;
         }
 
         public Item(IDataReader reader)

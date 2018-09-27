@@ -5,12 +5,13 @@ using System.Web.Http.Results;
 namespace MyLibraryApi.Controllers
 {
     using DataMaster.DTO;
+    using DataMaster.Models;
     using DomainMaster.Services;
 
     public class ItemController : ApiController
     {
         // GET: api/Item/GetItemRelations
-        public JsonResult<ItemRelationshipsDto> GetItemRelations(int itemId)
+        public JsonResult<ItemRelationshipsDto> GetRelations(int itemId)
         {
             ItemService service = new ItemService();
             ItemRelationshipsDto dto = service.GetItemRelations(itemId);
@@ -18,9 +19,11 @@ namespace MyLibraryApi.Controllers
         }
 
         // GET: api/Item
-        public IEnumerable<string> Get()
+        public JsonResult<IEnumerable<IItem>> Get()
         {
-            return new string[] { "value1", "value2" };
+            ItemService service = new ItemService();
+            IEnumerable<IItem> dto = service.Get();
+            return Json(dto);
         }
 
         // GET: api/Item/5

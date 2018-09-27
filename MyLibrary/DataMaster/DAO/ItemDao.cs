@@ -10,13 +10,16 @@ namespace DataMaster.DAO
 
     public static class ItemDao
     {
-
-        public static IItem Get(int itemId)
+        /// <summary>
+        /// Gets all Items
+        /// </summary>
+        /// <returns>I collection of Items</returns>
+        public static IEnumerable<IItem> Get()
         {
-            IItem item;
+            IList<IItem> items = new List<IItem>();
 
-            using (SqlCommand command = new SqlCommand())
-            using (SqlConnection connection = new SqlConnection(SqlCommander.ConnectionString))
+            using (IDbCommand command = new SqlCommand())
+            using (IDbConnection connection = new SqlConnection(SqlCommander.ConnectionString))
             {
                 //open the connection
                 connection.Open();
@@ -26,7 +29,42 @@ namespace DataMaster.DAO
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "dbo.GetItem";
 
-                command.Parameters.Add(new SqlParameter("@ItemID", SqlDbType.VarChar) { Value = itemId });
+                //use a reader to fetch the data (faster than an adapter)
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        items.Add(new Item(reader));
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return items;
+        }
+
+        /// <summary>
+        /// Gets a Item
+        /// </summary>
+        /// <param name="parameter">The Item ID</param>
+        /// <returns>The Item</returns>
+        public static IItem Get(IDbDataParameter parameter)
+        {
+            IItem item;
+
+            using (IDbCommand command = new SqlCommand())
+            using (IDbConnection connection = new SqlConnection(SqlCommander.ConnectionString))
+            {
+                //open the connection
+                connection.Open();
+
+                //attach the connection to the command
+                command.Connection = connection;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "dbo.GetItem";
+
+                command.Parameters.Add(parameter);
 
                 //use a reader to fetch the data (faster than an adapter)
                 using (IDataReader reader = command.ExecuteReader())
@@ -41,19 +79,22 @@ namespace DataMaster.DAO
             return item;
         }
 
-
-
-        public static ItemRelationshipsDto GetRelations(int itemId)
+        /// <summary>
+        /// Gets which Items are related to a Item
+        /// </summary>
+        /// <param name="parameter">The Item ID</param>
+        /// <returns>An Item to Item relationship</returns>
+        public static ItemRelationshipsDto GetRelations(IDbDataParameter parameter)
         {
-            IItem item = Get(itemId);
+            IItem item = Get(parameter);
 
             ItemRelationshipsDto dto;
 
             IList<IItem> items = new List<IItem>();
             IList<IItemRelation> relations = new List<IItemRelation>();
 
-            using (SqlCommand command = new SqlCommand())
-            using (SqlConnection connection = new SqlConnection(SqlCommander.ConnectionString))
+            using (IDbCommand command = new SqlCommand())
+            using (IDbConnection connection = new SqlConnection(SqlCommander.ConnectionString))
             {
                 //open the connection
                 connection.Open();
@@ -63,7 +104,7 @@ namespace DataMaster.DAO
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "dbo.GetItemRelations";
 
-                command.Parameters.Add(new SqlParameter("@ItemID", SqlDbType.VarChar) { Value = itemId });
+                command.Parameters.Add(parameter);
 
                 //use a reader to fetch the data (faster than an adapter)
                 using (IDataReader reader = command.ExecuteReader())
@@ -87,6 +128,42 @@ namespace DataMaster.DAO
             }
 
             return dto;
+        }
+
+        /// <summary>
+        /// Adds a new Item
+        /// </summary>
+        /// <param name="parameters">Details of an Item</param>
+        /// <returns>The Item ID</returns>
+        public static int Add(IEnumerable<IDbDataParameter> parameters)
+        {
+            int itemId = 0;
+            using (IDbCommand command = new SqlCommand())
+            using (IDbConnection connection = new SqlConnection(SqlCommander.ConnectionString))
+            {
+                //open the connection
+                connection.Open();
+
+                //attach the connection to the command
+                command.Connection = connection;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "dbo.InsertItem";
+
+                command.Parameters.Add(parameters);
+
+                //use a reader to fetch the data (faster than an adapter)
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        itemId = reader.GetInt32(0);
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return itemId;
         }
     }
 }
