@@ -3,9 +3,30 @@
 namespace DataMaster.DTO
 {
     using DataMaster.Models;
+    using System.Data;
 
     public class ItemRelationshipsDto
     {
+        public ItemRelationshipsDto(IDataReader reader)
+        {
+            Relations = new List<IItemRelation>();
+
+            Relations.Add(new ItemRelation(reader));
+
+            while (reader.Read())
+            {
+                Relations.Add(new ItemRelation(reader));
+            }
+
+            reader.NextResult();
+
+            Items = new List<IItem>();
+
+            while (reader.Read())
+            {
+                Items.Add(new Item(reader));
+            }
+        }
 
         public ItemRelationshipsDto(IItem item, IList<IItem> items, IList<IItemRelation> relations)
         {

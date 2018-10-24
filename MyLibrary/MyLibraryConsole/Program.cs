@@ -7,6 +7,8 @@ namespace MyLibraryConsole
     using DataMaster.DbConnection;
     using DataMaster.DTO;
     using DataMaster.Models;
+    using System.Data;
+    using System.Data.SqlClient;
     using System.Linq;
 
     class Program
@@ -18,12 +20,34 @@ namespace MyLibraryConsole
             SqlCommander.DatabasePassword = "Fq9m?1a?5WG3";
             SqlCommander.DatabaseName = "mylibrarydata";
 
-            TestRelations();
+            TestItems();
         }
 
         private static void TestRelations()
         {
-            ItemRelationshipsDto dto = ItemDao.GetRelations(3);
+            IDataParameter parameter = new SqlParameter("@ItemID", 3);
+
+            ItemRelationshipsDto dto = ItemDao.GetRelations(parameter);
+
+            Console.WriteLine($"Here is the relationships for: {Environment.NewLine + Environment.NewLine} {dto.Item.Name} {Environment.NewLine + Environment.NewLine}");
+
+            foreach (IItemRelation relation in dto.Relations)
+            {
+                if (relation.ItemOneId == dto.Item.Id)
+                {
+                    IItem relatedItem = dto.Items.FirstOrDefault(item => item.Id == relation.ItemTwoId);
+
+                    Console.WriteLine($"{dto.Item.Name} has a downstream dependency to {relatedItem.Name}.");
+                }
+                else
+                {
+                    IItem relatedItem = dto.Items.FirstOrDefault(item => item.Id == relation.ItemOneId);
+
+                    Console.WriteLine($"{dto.Item.Name} has a upstream dependency to {relatedItem.Name}.");
+                }
+            }
+
+            Console.Read();
         }
 
         private static void TestCreators()
@@ -74,11 +98,12 @@ namespace MyLibraryConsole
 
                 int id = Convert.ToInt32(input);
 
-                IItem selectedItem = ItemDao.Get(id);
+                IDataParameter parameter = new SqlParameter("@ItemID", id);
+                IItem selectedItem = ItemDao.Get(parameter);
 
                 Console.WriteLine($"You have selected {selectedItem.Name} {Environment.NewLine}");
 
-                ItemRelationshipsDto dto = ItemDao.GetRelations(id);
+                ItemRelationshipsDto dto = ItemDao.GetRelations(parameter);
 
                 foreach (IItemRelation relation in dto.Relations)
                 {

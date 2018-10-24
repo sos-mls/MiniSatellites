@@ -164,6 +164,29 @@ namespace DataMaster.DbConnection
 
             return rVal;
         }
+
+
+        internal static IDbCommand BuildCommand(string storedProcedure, IDataParameter[] dataParameters)
+        {
+            IDbCommand command = new SqlCommand()
+            {
+                Connection = new SqlConnection(ConnectionString),
+                CommandType = CommandType.StoredProcedure,
+                CommandText = storedProcedure
+            };
+
+            if (dataParameters != null)
+            {
+                foreach (IDataParameter param in dataParameters)
+                {
+                    command.Parameters.Add(param as SqlParameter);
+                }
+            }          
+
+            return command;
+        }
+
+
         #endregion
     }
     

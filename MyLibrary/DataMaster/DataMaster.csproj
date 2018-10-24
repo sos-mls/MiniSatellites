@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\BaseDao.cs" />
     <Compile Include="DAO\CreatorDao.cs" />
     <Compile Include="DAO\ItemDao.cs" />
     <Compile Include="DbConnection\SqlCommander.cs" />
